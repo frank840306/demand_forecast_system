@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/decorator.css') }}">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="{{ url_for('static', filename='js/chartkick.js') }}"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="header">
+  <h1>Demand Forecast System</h1>
+</div>
+
+<div class="row">
+
+<div class="col-7 menu">
+  <div id="publisher_header">
+    <div class="header_publisher">
+      <h3> publisher</h3>
+    </div>
+    <div class="header_product">
+      <h3> product</h3>
+    </div>
+    <div class="header_dollar">
+      <h3> category </h3>
+    </div>
+    <div class="header_recommended_price">
+      <h3> recommended </h3>
+    </div>
+    <div class="header_forcast_price">
+      <h3> forecast </h3>
+    </div>
+  </div>
+  <div class="publisher_menu">
+    <div class="item_publisher">
+      <h2> publisher A </h2>
+
+    </div>
+    <div class="item_product">
+      {% for key, val in data['sample']['publisher_A'].items() %}
+        <h3><a href={{ val['link'] }}> {{ key }} </a></h3>
+      {% endfor %}
+        <!-- <h3> product</h3>
+        <h3> product</h3>
+        <h3> product</h3> -->
+      
+    </div>
+    <div class="item_dollar">
+      {% for key, val in data['sample']['publisher_A'].items() %}
+        <h3> {{ val['type'] }} </h3>
+      {% endfor %}
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+    </div>
+    <div class="item_recommended_price">
+      {% for key, val in data['recommend']['publisher_A'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+      <!-- <h3> 100 </h3>
+      <h3> 100 </h3>
+      <h3> 100 </h3> -->
+    </div>
+    <div class="item_forcast_price">
+      {% for key, val in data['predict']['publisher_A'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+      <!-- <h3> 100 </h3>
+      <h3> 100 </h3>
+      <h3> 100 </h3> -->
+    </div>
+    <!-- <h2> Hello </h2> -->
+  </div>
+  <div class="publisher_menu">
+    <div class="item_publisher">
+      <h2> publisher B </h2>
+
+    </div>
+    <div class="item_product">
+      {% for key, val in data['sample']['publisher_B'].items() %}
+        <h3><a href={{ val['link'] }}> {{ key }} </a></h3>
+      {% endfor %}
+        <!-- <h3> product</h3>
+        <h3> product</h3>
+        <h3> product</h3> -->
+      
+    </div>
+    <div class="item_dollar">
+      {% for key, val in data['sample']['publisher_B'].items() %}
+        <h3> {{ val['type'] }} </h3>
+      {% endfor %}
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+    </div>
+    <div class="item_recommended_price">
+      {% for key, val in data['recommend']['publisher_B'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+      <!-- <h3> 100 </h3>
+      <h3> 100 </h3>
+      <h3> 100 </h3> -->
+    </div>
+    <div class="item_forcast_price">
+      {% for key, val in data['predict']['publisher_B'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="publisher_menu">
+    <div class="item_publisher">
+      <h2> publisher C </h2>
+
+    </div>
+    <div class="item_product">
+      {% for key, val in data['sample']['publisher_C'].items() %}
+        <h3><a href={{ val['link'] }}> {{ key }} </a></h3>
+      {% endfor %}
+        <!-- <h3> product</h3>
+        <h3> product</h3>
+        <h3> product</h3> -->
+      
+    </div>
+    <div class="item_dollar">
+      {% for key, val in data['sample']['publisher_C'].items() %}
+        <h3> {{ val['type'] }} </h3>
+      {% endfor %}
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+      <!-- <h3> 100 USD </h3> -->
+    </div>
+    <div class="item_recommended_price">
+      {% for key, val in data['recommend']['publisher_C'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+      <!-- <h3> 100 </h3>
+      <h3> 100 </h3>
+      <h3> 100 </h3> -->
+    </div>
+    <div class="item_forcast_price">
+      {% for key, val in data['predict']['publisher_C'].items() %}
+        <h3> {{val}} </h3>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+<div class="col-5">
+  {% if data['type'] == 1 %}
+  <h1><a href="/analysis/2">Author Rank</a></h1>
+  {% bar_chart data['author_data'] %}
+  {% pie_chart data['author_data'] %}
+  {% elif data['type'] == 2 %}
+  <h1><a href="/analysis/1">Category Rank</a></h1>
+  {% bar_chart data['type_data'] %}
+  {% pie_chart data['type_data'] %}
+  {% endif %} 
+
+  <h3><a href="/analysis/{{ data['type'] }}/result">Predict</a></h3>
+  <h3><a href="/analysis">Re-Analyize</a></h3>
+</div>
+
+
+</div>
+
+</body>
+</html>
